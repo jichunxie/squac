@@ -1,3 +1,5 @@
+library("quantreg")
+
 GetStat = function(Y,Z=1,tauseq,empirical=FALSE){
   n = dim(Y)[1]
   p = dim(Y)[2]
@@ -67,4 +69,10 @@ ChisqRule = function(X2,alpha,df){
   R =  sum(FDRh<=alpha)
   Rej = X2.ord[1:R]
   return(Rej)
+}
+
+assign.order=function(vec){
+  order.calc=length(vec)+1
+  if(max(vec)==1){order.calc=which.max(vec)}
+  return(order.calc)
 }
