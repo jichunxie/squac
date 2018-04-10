@@ -14,6 +14,8 @@
 p = 30
 p1 = 5
 n = 200
+
+set.seed(123)
 Z = cbind(matrix(1,n,1),matrix(rnorm(n),n,1))
 beta = matrix(rnorm(2*p,mean=1),nrow=2,ncol=p)
 Y01 = (diag(0.8,p1,p1) + matrix(0.2,p1,p1))%*%
@@ -29,10 +31,5 @@ alpha = 0.05
 X2 = GetStat(Y=Y,Z=matrix(Z[,2],n,1),tauseq=tauseq) 
 Rej = ChisqRule(X2,alpha,df=(length(tauseq))^2)
 
-# If you would like to test for marginal dependence, you can run functions 
-
-# The function "ChisqRule" will return a vector of indices indicating which hypotheses should be rejected. To find out the corresponding pairs of $(Y_i,Y_j)$, use the following codes:
-tmp = diag(1,p,p)
-twoIdx = which(upper.tri(tmp,diag=FALSE),arr.ind=TRUE)
-twoIdx[Rej,]
-
+# The function "ChisqRule" will return a vector of indices indicating which hypotheses should be rejected. To find out the corresponding pairs of $(Y_i,Y_j)$, use the function Ind2Matind.
+Ind2Matind(p,Rej)
