@@ -71,6 +71,14 @@ ChisqRule = function(X2,alpha,df){
   return(Rej)
 }
 
+Ind2Matind =  function (p,Rej) {
+  rawcol = rep(2:p,1:(p-1))
+  cols = rawcol[Rej]
+  rawrow = sequence(1:(p-1))
+  rows = rawrow[Rej]
+  return(cbind(rows,cols))
+}
+
 assign.order=function(vec){
   order.calc=length(vec)+1
   if(max(vec)==1){order.calc=which.max(vec)}
