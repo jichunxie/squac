@@ -1,6 +1,6 @@
 # squac
 
-This respository contains two R scripts, and a manuscript on the squac method.
+This respository contains two R scripts, and the manuscript on the squac method.
 
 1. squac_code.R has three functions.
    - "GetStat" is a function that returns the chi-square statistics. It has four arguments: Y is $n$ by $p$ matrix of outcome variables, Z is $n$ by $p_x$ matrix of covariates, tauseq is the vector of inner quantile levels $(\tau_1,\ldots,\tau_{D-1})$, and empirical is a bull variable to set whether we use theoretical or empirical conditional quantiles in calculting the chi-square statistics. Set Z=1 if you want to test for marginal quantial associations. 
