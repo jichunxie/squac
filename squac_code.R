@@ -60,16 +60,21 @@ GetStat = function(Y,Z=1,tauseq,empirical=FALSE){
   return(X2)
 }
 
-ChisqRule = function(X2,alpha,df){
+ChisqRule = function(X2,alpha,df,n,p){
+  tp = 4*log(max(n,p)) + (df-2)*log(log(max(n,p)))
+  Rej1 = which(X2>tp)
   d = length(X2)
-  X2.ord = order(X2, decreasing=TRUE)
-  X2s = X2[X2.ord]
-  P2s = 1-pchisq(X2s, df=df)
-  FDRh = P2s*d/(1:d)
-  R =  sum(FDRh<=alpha)
-  Rej = X2.ord[1:R]
+  cand = setdiff(1:d,Rej1)
+  X22 = X2[cand]
+  X22.ord = order(X22, decreasing=TRUE)
+  X22s = X22[X22.ord]
+  P22s = 1-pchisq(X22s, df=df)
+  FDR2h = P22s*d/((length(Rej1)+1):d)
+  R2 = max(which(FDR2h<=alpha))
+  Rej = c(Rej1, cand[X22.ord[1:R2]])
   return(Rej)
 }
+
 
 Ind2Matind =  function (p,Rej) {
   rawcol = rep(2:p,1:(p-1))
