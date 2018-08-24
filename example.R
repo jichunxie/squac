@@ -29,7 +29,8 @@ source("~/Dropbox/SQUAC/GitCode/squac_code.R")
 tauseq = c(0.33,0.67)
 alpha = 0.05
 X2 = GetStat(Y=Y,Z=matrix(Z[,2],n,1),tauseq=tauseq) 
-Rej = ChisqRule(X2,alpha,df=(length(tauseq))^2)
+df = (length(tauseq))^2
+Rej = ChisqRule(X2,alpha,df,n,p)
 
 # The function "ChisqRule" will return a vector of indices indicating which hypotheses should be rejected. To find out the corresponding pairs of $(Y_i,Y_j)$, use the function Ind2Matind.
 Ind2Matind(p,Rej)
